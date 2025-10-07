@@ -214,6 +214,18 @@ namespace TraceSpy
                             return (DarkTheme)deserializer.Deserialize(reader);
                         }
 
+                        if (string.Compare(name, MeiTheme.ThemeName, true) == 0)
+                        {
+                            var deserializer = new XmlSerializer(typeof(MeiTheme));
+                            return (MeiTheme)deserializer.Deserialize(reader);
+                        }
+
+                        if (string.Compare(name, MeiDarkTheme.ThemeName, true) == 0)
+                        {
+                            var deserializer = new XmlSerializer(typeof(MeiDarkTheme));
+                            return (MeiDarkTheme)deserializer.Deserialize(reader);
+                        }
+
                         var deserializer2 = new XmlSerializer(typeof(CustomTheme));
                         var theme = (CustomTheme)deserializer2.Deserialize(reader);
                         theme.ThemeName = name;
@@ -228,7 +240,10 @@ namespace TraceSpy
 
             if (name == DarkTheme.ThemeName)
                 return new DarkTheme();
-
+            if (name == MeiTheme.ThemeName)
+                return new MeiTheme();
+            if (name == MeiDarkTheme.ThemeName)
+                return new MeiDarkTheme();
             return new LightTheme();
         }
     }
@@ -265,6 +280,62 @@ namespace TraceSpy
             LevelVerboseColor = DefaultLevelVerboseColor;
         }
 
+        public override string Name => ThemeName;
+    }
+
+    public class MeiTheme : Theme
+    {
+        public const string ThemeName = "Mei";
+
+        public MeiTheme()
+        {
+            IndexColor = DefaultIndexColor;
+            TicksColor = DefaultTicksColor;
+            ProcessColor = DefaultProcessColor;
+            TextColor = DefaultTextColor;
+            RangeTextColor = DefaultRangeTextColor;
+            RangeBackColor = DefaultRangeBackColor;
+            ErrorBackColor = DefaultErrorBackColor;
+            WarningBackColor = DefaultWarningBackColor;
+            ListViewBackColor = DefaultListViewBackColor;
+            ListViewTextColor = DefaultListViewTextColor;
+            MenuBackColor = DefaultMenuBackColor;
+            MenuTextColor = DefaultMenuTextColor;
+            SelectedTextColor = DefaultSelectedTextColor;
+            LevelFatalColor = DefaultLevelFatalColor;
+            LevelErrorColor = DefaultLevelErrorColor;
+            LevelWarningColor = DefaultLevelWarningColor;
+            LevelInfoColor = "#8080FF";
+            LevelVerboseColor = "#FF80FF";
+        }
+        public override string Name => ThemeName;
+    }
+
+    public class MeiDarkTheme : Theme
+    {
+        public const string ThemeName = "MeiDark";
+        public MeiDarkTheme()
+        {
+            IndexColor = "#CCCCCC";
+            TicksColor = IndexColor;
+            ProcessColor = IndexColor;
+            TextColor = IndexColor;
+            RangeTextColor = IndexColor;
+            RangeBackColor = "#1F1F1F";
+            ErrorBackColor = RangeBackColor;
+            WarningBackColor = RangeBackColor;
+            ListViewBackColor = RangeBackColor;
+            ListViewTextColor = IndexColor;
+            MenuBackColor = "#3F3F3F";
+            MenuTextColor = IndexColor;
+            SelectedTextColor = RangeBackColor;
+            LevelFatalColor = DefaultLevelFatalColor;
+            LevelErrorColor = DefaultLevelErrorColor;
+            LevelWarningColor = DefaultLevelWarningColor;
+            LevelInfoColor = "#8080FF";
+            LevelVerboseColor = "#FF80FF";
+        }
+        
         public override string Name => ThemeName;
     }
 

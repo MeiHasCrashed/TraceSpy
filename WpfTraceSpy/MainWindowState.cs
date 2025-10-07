@@ -55,6 +55,8 @@ namespace TraceSpy
         public string ListViewHeaderForeground => App.CurrentTheme.ListViewTextColor;
         public bool ThemeLight { get => string.IsNullOrEmpty(ThemeName) || ThemeName == LightTheme.ThemeName; set { ThemeName = null; } }
         public bool ThemeDark { get => ThemeName == DarkTheme.ThemeName; set { ThemeName = DarkTheme.ThemeName; } }
+        public bool ThemeMei { get => ThemeName == MeiTheme.ThemeName; set { ThemeName = MeiTheme.ThemeName; } }
+        public bool ThemeMeiDark { get => ThemeName == MeiDarkTheme.ThemeName; set { ThemeName = MeiDarkTheme.ThemeName; } }
         public string ThemeName
         {
             get => DictionaryObjectGetPropertyValue<string>();
@@ -64,6 +66,8 @@ namespace TraceSpy
                 {
                     OnPropertyChanged(nameof(ThemeLight));
                     OnPropertyChanged(nameof(ThemeDark));
+                    OnPropertyChanged(nameof(ThemeMei));
+                    OnPropertyChanged(nameof(ThemeMeiDark));
                     OnPropertyChanged(nameof(ListViewHeaderBackground));
                     OnPropertyChanged(nameof(ListViewHeaderForeground));
                 }

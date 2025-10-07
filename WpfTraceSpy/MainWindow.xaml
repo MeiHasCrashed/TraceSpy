@@ -262,6 +262,14 @@
                         Header="Dark"
                         IsCheckable="True"
                         IsChecked="{Binding ThemeDark, Mode=TwoWay}" />
+                    <MenuItem 
+                        Header="Mei"
+                        IsCheckable="True"
+                        IsChecked="{Binding ThemeMei, Mode=TwoWay}"/>
+                    <MenuItem 
+                        Header="Mei Dark"
+                        IsCheckable="True"
+                        IsChecked="{Binding ThemeMeiDark, Mode=TwoWay}"/>
                 </MenuItem>
                 <MenuItem
                     Name="Filters"
