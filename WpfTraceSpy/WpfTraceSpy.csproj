@@ -67,6 +67,7 @@
 		<Compile Include="AutoCompleteComboBox.cs" />
 		<Compile Include="ColumnSortHandler.cs" />
 		<Compile Include="Theme.cs" />
+		<Compile Include="TimeProvider.cs" />
 		<Compile Include="TransparencyWindow.xaml.cs">
 			<DependentUpon>TransparencyWindow.xaml</DependentUpon>
 		</Compile>

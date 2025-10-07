@@ -60,7 +60,7 @@ namespace TraceSpy
                 const string decFormat = "0.00000000";
                 var text = App.Current.Settings.ShowTicksMode switch
                 {
-                    ShowTicksMode.AsTime => new TimeSpan(Ticks).ToString(),
+                    ShowTicksMode.AsTime => TimeProvider.GetRelativeTime(Ticks).ToString("HH:mm:ss.fff"),
                     ShowTicksMode.AsSeconds => (Ticks / (double)Stopwatch.Frequency).ToString() + " s",
                     ShowTicksMode.AsMilliseconds => (Ticks / (double)Stopwatch.Frequency / 1000).ToString() + " ms",
                     ShowTicksMode.AsDeltaTicks => (Ticks - PreviousTicks).ToString(),

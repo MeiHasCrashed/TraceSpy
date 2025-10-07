@@ -52,6 +52,9 @@
 		<Compile Include="..\WpfTraceSpy\Serializable.cs" Link="Serializable.cs" />
 		<Compile Include="..\WpfTraceSpy\ShowTicksMode.cs" Link="ShowTicksMode.cs" />
 		<Compile Include="..\WpfTraceSpy\Theme.cs" Link="Theme.cs" />
+		<Compile Include="..\WpfTraceSpy\TimeProvider.cs">
+		  <Link>TimeProvider.cs</Link>
+		</Compile>
 		<Compile Include="..\WpfTraceSpy\TraceDetailsWindow.xaml.cs" Link="TraceDetailsWindow.xaml.cs" />
 		<Compile Include="..\WpfTraceSpy\TraceEvent.cs" Link="TraceEvent.cs" />
 		<Compile Include="..\WpfTraceSpy\TraceEventColumnLayout.cs" Link="TraceEventColumnLayout.cs" />

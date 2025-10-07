@@ -130,6 +130,9 @@
 		<Compile Include="..\WpfTraceSpy\Theme.cs">
 			<Link>Theme.cs</Link>
 		</Compile>
+		<Compile Include="..\WpfTraceSpy\TimeProvider.cs">
+		  <Link>WpfTraceSpy\TimeProvider.cs</Link>
+		</Compile>
 		<Compile Include="..\WpfTraceSpy\TraceDetailsWindow.xaml.cs">
 			<DependentUpon>TraceDetailsWindow.xaml</DependentUpon>
 		</Compile>
