@@ -56,17 +56,9 @@ public class Program
 
             await Task.Delay(_rnd.Next(100, 500), cts.Token).ConfigureAwait(false);
 
-            var isError = _rnd.Next(0, 10) < 2; // 20% chance of error
-            if (isError)
-            {
-                var phrase = $"ETWTrace ERROR #{count} from TraceSpyTest. Date:{DateTime.Now}";
-                logger.LogError(phrase);
-            }
-            else
-            {
-                var phrase = $"ETWTrace #{count} from TraceSpyTest. Date:{DateTime.Now}";
-                logger.LogInformation(phrase);
-            }
+            var level = _rnd.Next(1, 6);
+            
+            logger.Log((LogLevel)level, $"ETWTrace {(LogLevel)level} #{count} from TraceSpyTest. Date:{DateTime.Now}");
             count++;
         }
         while (true);
