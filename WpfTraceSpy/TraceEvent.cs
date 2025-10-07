@@ -28,6 +28,8 @@ namespace TraceSpy
         public bool DontColorize { get; set; }
         public string FullText => Index + "\t" + Ticks + "\t" + ProcessName + "\t" + Text;
         public IReadOnlyList<ColorRange> Ranges => _ranges.Value;
+        
+        public int Level { get; set; }
 
         public string Text
         {

@@ -121,6 +121,7 @@ namespace TraceSpy
             TicksColumn.Width = App.Current.ColumnLayout.TicksColumnWidth;
             ProcessColumn.Width = App.Current.ColumnLayout.ProcessColumnWidth;
             TextColumn.Width = App.Current.ColumnLayout.TextColumnWidth;
+            LevelColumn.Width = App.Current.ColumnLayout.LevelColumnWidth;
             App.Current.ColumnLayout.PropertyChanged += OnColumnLayoutPropertyChanged;
 
             LV.ItemsSource = _dataSource;
@@ -238,6 +239,9 @@ namespace TraceSpy
 
             App.Current.ColumnLayout.TextColumnWidth = App.Current.Settings.TextColumnWidth;
             TextColumn.Width = App.Current.Settings.TextColumnWidth;
+
+            App.Current.ColumnLayout.LevelColumnWidth = App.Current.Settings.LevelColumnWidth;
+            LevelColumn.Width = App.Current.Settings.LevelColumnWidth;
         }
 
         private void SaveSettings()
@@ -260,6 +264,7 @@ namespace TraceSpy
             App.Current.Settings.TicksColumnWidth = App.Current.ColumnLayout.TicksColumnWidth;
             App.Current.Settings.ProcessColumnWidth = App.Current.ColumnLayout.ProcessColumnWidth;
             App.Current.Settings.TextColumnWidth = App.Current.ColumnLayout.TextColumnWidth;
+            App.Current.Settings.LevelColumnWidth = App.Current.ColumnLayout.LevelColumnWidth;
 
             App.Current.Settings.SerializeToConfiguration();
         }
@@ -321,6 +326,11 @@ namespace TraceSpy
             {
                 App.Current.ColumnLayout.TextColumnWidth = col.Width;
                 col.Width = App.Current.ColumnLayout.TextColumnWidth;
+            }
+            else if (col == LevelColumn)
+            {
+                App.Current.ColumnLayout.LevelColumnWidth = col.Width;
+                col.Width = App.Current.ColumnLayout.LevelColumnWidth;
             }
 
             SaveSettings();
@@ -778,6 +788,7 @@ namespace TraceSpy
             var listener = (EventRealtimeListener)sender;
 
             var evt = new TraceEvent();
+            evt.Level = (int)e.Level;
             evt.ProcessName = GetProcessName(e.ProcessId);
             if (listener.Description != null && _state.ShowEtwDescription)
             {

@@ -343,6 +343,10 @@
                         Width="100"
                         Header="Process" />
                     <GridViewColumn
+                        x:Name="LevelColumn"
+                        Width="75"
+                        Header="Level" />
+                    <GridViewColumn
                         x:Name="TextColumn"
                         Width="1000"
                         Header="Text" />

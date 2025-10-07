@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,15 @@ namespace TraceSpy
             DependencyProperty.Register(nameof(Event), typeof(TraceEvent), typeof(TraceEventElement),
             new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange));
 
+        private static readonly Dictionary<int, string> _levelTexts = new Dictionary<int, string>()
+        {
+            { 1, "Fatal" },
+            { 2, "Error" },
+            { 3, "Warning" },
+            { 4, "Info" },
+            { 5, "Verbose" }
+        };
+        
         private ListView _listView;
 
         protected override void OnVisualParentChanged(DependencyObject oldParent)
@@ -180,6 +190,52 @@ namespace TraceSpy
             }
 
             offset += App.Current.ColumnLayout.ProcessColumnWidth;
+
+            if (evt.Level > 0 && evt.Level < 6)
+            {
+                var brush = App.CurrentTheme.TextColorBrush;
+                switch (evt.Level)
+                {
+                    case 1:
+                        brush = App.CurrentTheme.SelectedLevelFatalColorBrush;
+                        break;
+                    case 2:
+                        brush = App.CurrentTheme.SelectedLevelErrorColorBrush;
+                        break;
+                    case 3:
+                        brush = App.CurrentTheme.SelectedLevelWarningColorBrush;
+                        break;
+                    case 4:
+                        brush = App.CurrentTheme.SelectedLevelInfoColorBrush;
+                        break;
+                    case 5:
+                        brush = App.CurrentTheme.SelectedLevelVerboseColorBrush;
+                        break;
+                }
+#if FX4
+                formattedText = new FormattedText(
+                    _levelTexts[evt.Level],
+                    _culture,
+                    FlowDirection.LeftToRight,
+                    App.Current.Settings.TypeFace,
+                    FontSize,
+                    evt.IsSelected ? App.CurrentTheme.SelectedTextColorBrush : brush);
+#else
+                formattedText = new FormattedText(
+                    _levelTexts[evt.Level],
+                    _culture,
+                    FlowDirection.LeftToRight,
+                    App.Current.Settings.TypeFace,
+                    FontSize,
+                    evt.IsSelected ? App.CurrentTheme.SelectedTextColorBrush : brush,
+                    ppd);
+#endif
+                formattedText.MaxLineCount = 1;
+                formattedText.Trimming = TextTrimming.CharacterEllipsis;
+                formattedText.MaxTextWidth = App.Current.ColumnLayout.LevelColumnWidth;
+                drawingContext.DrawText(formattedText, new Point(offset, 0));
+            }
+            offset += App.Current.ColumnLayout.LevelColumnWidth;
 
             if (evt.Text != null)
             {

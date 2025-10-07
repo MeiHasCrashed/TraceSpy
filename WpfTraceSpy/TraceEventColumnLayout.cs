@@ -10,6 +10,7 @@ namespace TraceSpy
             TicksColumnWidth = 96;
             ProcessColumnWidth = 102;
             TextColumnWidth = 681;
+            LevelColumnWidth = 75;
         }
 
         public double IndexColumnWidth
@@ -76,6 +77,20 @@ namespace TraceSpy
             }
         }
 
-        public double RowWidth => IndexColumnWidth + TicksColumnWidth + ProcessColumnWidth + TextColumnWidth;
+        public double LevelColumnWidth
+        {
+            get => DictionaryObjectGetPropertyValue<double>();
+            set
+            {
+                if (double.IsNaN(value)) return;
+                value = Math.Max(10, value);
+                if (DictionaryObjectSetPropertyValue(value))
+                {
+                    OnPropertyChanged(nameof(RowWidth));
+                }
+            }
+        }
+
+        public double RowWidth => IndexColumnWidth + TicksColumnWidth + ProcessColumnWidth + TextColumnWidth + LevelColumnWidth;
     }
 }

@@ -47,6 +47,7 @@ namespace TraceSpy
             TicksColumnWidth = 96;
             ProcessColumnWidth = 102;
             TextColumnWidth = 681;
+            LevelColumnWidth = 75;
             Opacity = 1;
             _filters.Add(new Filter(null, false));
             ResetOdsEncoding();
@@ -70,6 +71,9 @@ namespace TraceSpy
         public double TicksColumnWidth { get; set; }
         public double ProcessColumnWidth { get; set; }
         public double TextColumnWidth { get; set; }
+        
+        public double LevelColumnWidth { get; set; }
+        
         public bool DontAnimateCaptureMenuItem { get; set; }
         public bool DontSplitText { get; set; }
         public bool IsTopmost { get; set; }

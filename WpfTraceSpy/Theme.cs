@@ -99,6 +99,56 @@ namespace TraceSpy
         [XmlIgnore]
         public Brush SelectedTextColorBrush { get; private set; }
 
+        public const string DefaultLevelFatalColor = "Red";
+        private string _selectedLevelFatalColor;
+        public string LevelFatalColor
+        {
+            get => _selectedLevelFatalColor;
+            set { _selectedLevelFatalColor = value; SelectedLevelFatalColorBrush = GetBrush(value, DefaultLevelFatalColor);  }
+        }
+        [XmlIgnore]
+        public Brush SelectedLevelFatalColorBrush { get; private set; }
+        
+        public const string DefaultLevelErrorColor = "Red";
+        private string _selectedLevelErrorColor;
+        public string LevelErrorColor
+        {
+            get => _selectedLevelErrorColor;
+            set { _selectedLevelErrorColor = value; SelectedLevelErrorColorBrush = GetBrush(value, DefaultLevelErrorColor);  }
+        }
+        [XmlIgnore]
+        public Brush SelectedLevelErrorColorBrush { get; private set; }
+        
+        public const string DefaultLevelWarningColor = "Orange";
+        private string _selectedLevelWarningColor;
+        public string LevelWarningColor
+        {
+            get => _selectedLevelWarningColor;
+            set { _selectedLevelWarningColor = value; SelectedLevelWarningColorBrush = GetBrush(value, DefaultLevelWarningColor);  }
+        }
+        [XmlIgnore]
+        public Brush SelectedLevelWarningColorBrush { get; private set; }
+        
+        public const string DefaultLevelInfoColor = "Green";
+        private string _selectedLevelInfoColor;
+        public string LevelInfoColor
+        {
+            get => _selectedLevelInfoColor;
+            set { _selectedLevelInfoColor = value; SelectedLevelInfoColorBrush = GetBrush(value, DefaultLevelInfoColor);  }
+        }
+        [XmlIgnore]
+        public Brush SelectedLevelInfoColorBrush { get; private set; }
+        
+        public const string DefaultLevelVerboseColor = "Gray";
+        private string _selectedLevelVerboseColor;
+        public string LevelVerboseColor
+        {
+            get => _selectedLevelVerboseColor;
+            set { _selectedLevelVerboseColor = value; SelectedLevelVerboseColorBrush = GetBrush(value, DefaultLevelVerboseColor);  }
+        }
+        [XmlIgnore]
+        public Brush SelectedLevelVerboseColorBrush { get; private set; }
+
         private static Brush GetBrush(string text, string defaultColor)
         {
             if (string.IsNullOrEmpty(text))
@@ -208,6 +258,11 @@ namespace TraceSpy
             MenuBackColor = DefaultMenuBackColor;
             MenuTextColor = DefaultMenuTextColor;
             SelectedTextColor = DefaultSelectedTextColor;
+            LevelFatalColor = DefaultLevelFatalColor;
+            LevelErrorColor = DefaultLevelErrorColor;
+            LevelWarningColor = DefaultLevelWarningColor;
+            LevelInfoColor = DefaultLevelInfoColor;
+            LevelVerboseColor = DefaultLevelVerboseColor;
         }
 
         public override string Name => ThemeName;
@@ -232,6 +287,11 @@ namespace TraceSpy
             MenuBackColor = "#3F3F3F";
             MenuTextColor = IndexColor;
             SelectedTextColor = RangeBackColor;
+            LevelFatalColor = DefaultLevelFatalColor;
+            LevelErrorColor = DefaultLevelErrorColor;
+            LevelWarningColor = DefaultLevelWarningColor;
+            LevelInfoColor = DefaultLevelInfoColor;
+            LevelVerboseColor = DefaultLevelVerboseColor;
         }
 
         public override string Name => ThemeName;
