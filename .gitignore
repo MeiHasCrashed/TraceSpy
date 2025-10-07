@@ -241,3 +241,6 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /doc/Thumbs.db
+
+# Rider
+.idea/
