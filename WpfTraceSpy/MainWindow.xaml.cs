@@ -49,6 +49,7 @@ namespace TraceSpy
             _state.AutoScroll = App.Current.Settings.AutoScroll;
             _state.RemoveEmptyLines = App.Current.Settings.RemoveEmptyLines;
             _state.ResolveProcessName = App.Current.Settings.ResolveProcessName;
+            _state.ShowLoggerNameAsProcess = App.Current.Settings.ShowLoggerNameAsProcess;
             _state.ShowEtwDescription = App.Current.Settings.ShowEtwDescription;
             _state.ShowProcessId = App.Current.Settings.ShowProcessId;
             _state.WrapText = App.Current.Settings.WrapText;
@@ -168,6 +169,7 @@ namespace TraceSpy
             App.Current.Settings.AutoScroll = _state.AutoScroll;
             App.Current.Settings.RemoveEmptyLines = _state.RemoveEmptyLines;
             App.Current.Settings.ResolveProcessName = _state.ResolveProcessName;
+            App.Current.Settings.ShowLoggerNameAsProcess = _state.ShowLoggerNameAsProcess;
             App.Current.Settings.ShowEtwDescription = _state.ShowEtwDescription;
             App.Current.Settings.ShowProcessId = _state.ShowProcessId;
             App.Current.Settings.WrapText = _state.WrapText;
@@ -431,8 +433,9 @@ namespace TraceSpy
                         continue;
 
                     var evt = new TraceEvent();
-                    evt.ProcessName = GetProcessName(pid);
-                    evt.Text = text;
+                    evt.ProcessName = _state.ShowLoggerNameAsProcess ? ExtractLoggerName(text, pid) : GetProcessName(pid);
+                    evt.Text = _state.ShowLoggerNameAsProcess ? RemoveLoggerName(text) : text;
+                    evt.Level = 5;
                     _events.Add(evt);
                     Dispatcher.BeginInvoke(() =>
                     {
@@ -441,6 +444,22 @@ namespace TraceSpy
                 }
             }
             while (true);
+        }
+
+        private string ExtractLoggerName(string text, int fallbackPid)
+        {
+            if (!text.StartsWith("[")) return GetProcessName(fallbackPid);
+            var end = text.IndexOf("]");
+            if(end < 2) return GetProcessName(fallbackPid);
+            return text.Substring(1, end - 1);
+        }
+        
+        private string RemoveLoggerName(string text)
+        {
+            if (!text.StartsWith("[")) return text;
+            var end = text.IndexOf("]");
+            if (end < 2) return text;
+            return text.Substring(end + 1).TrimStart();
         }
 
         private static string GetNullTerminatedString(byte[] bytes)
@@ -789,12 +808,12 @@ namespace TraceSpy
 
             var evt = new TraceEvent();
             evt.Level = (int)e.Level;
-            evt.ProcessName = GetProcessName(e.ProcessId);
+            evt.ProcessName = _state.ShowLoggerNameAsProcess ? ExtractLoggerName(e.Message, e.ProcessId) : GetProcessName(e.ProcessId);
             if (listener.Description != null && _state.ShowEtwDescription)
             {
                 evt.ProcessName += " (" + listener.Description + ")";
             }
-            evt.Text = e.Message;
+            evt.Text = _state.ShowLoggerNameAsProcess ? RemoveLoggerName(e.Message) : e.Message;
             _events.Add(evt);
 
             ThreadPool.QueueUserWorkItem((state) =>

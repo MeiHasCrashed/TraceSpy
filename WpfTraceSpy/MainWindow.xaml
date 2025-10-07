@@ -136,6 +136,10 @@
                     Header="_Auto Scroll"
                     IsCheckable="True"
                     IsChecked="{Binding AutoScroll, Mode=TwoWay}" />
+                <MenuItem 
+                    Header="Show _Logger Name Instead Of Process"
+                    IsCheckable="True"
+                    IsChecked="{Binding ShowLoggerNameAsProcess, Mode=TwoWay }"/>
                 <MenuItem
                     Header="Resolve _Process Name"
                     IsCheckable="True"

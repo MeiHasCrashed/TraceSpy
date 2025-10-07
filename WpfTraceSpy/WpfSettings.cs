@@ -34,6 +34,7 @@ namespace TraceSpy
             _typeFace = new Lazy<Typeface>(CreateTypeFace);
             RemoveEmptyLines = true;
             AutoScroll = true;
+            ShowLoggerNameAsProcess = false;
             ResolveProcessName = true;
             Left = 50;
             Top = 50;
@@ -54,6 +55,9 @@ namespace TraceSpy
         }
 
         public bool ResolveProcessName { get; set; }
+        
+        public bool ShowLoggerNameAsProcess { get; set; }
+        
         public bool ShowProcessId { get; set; }
         public bool ShowTooltips { get; set; }
         public bool ShowEtwDescription { get; set; }

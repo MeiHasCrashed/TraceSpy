@@ -7,6 +7,7 @@ namespace TraceSpy
         public MainWindowState()
         {
             ResolveProcessName = true;
+            ShowLoggerNameAsProcess = false;
             RemoveEmptyLines = true;
             ShowProcessId = true;
             ShowEtwDescription = true;
@@ -16,6 +17,7 @@ namespace TraceSpy
         }
 
         public bool ResolveProcessName { get => DictionaryObjectGetPropertyValue<bool>(); set => DictionaryObjectSetPropertyValue(value); }
+        public bool ShowLoggerNameAsProcess { get => DictionaryObjectGetPropertyValue<bool>(); set => DictionaryObjectSetPropertyValue(value); }
         public bool RemoveEmptyLines { get => DictionaryObjectGetPropertyValue<bool>(); set => DictionaryObjectSetPropertyValue(value); }
         public bool ShowProcessId { get => DictionaryObjectGetPropertyValue<bool>(); set => DictionaryObjectSetPropertyValue(value); }
         public bool ShowEtwDescription { get => DictionaryObjectGetPropertyValue<bool>(); set => DictionaryObjectSetPropertyValue(value); }
